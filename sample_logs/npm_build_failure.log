@@ -1,0 +1,44 @@
+2024-01-15T14:05:33.221Z npm warn config production Use `--omit=dev` instead.
+2024-01-15T14:05:33.221Z 
+2024-01-15T14:05:33.221Z > myapp@2.3.1 build
+2024-01-15T14:05:33.221Z > vite build
+2024-01-15T14:05:33.221Z 
+2024-01-15T14:05:33.504Z vite v5.0.8 building for production...
+2024-01-15T14:05:33.512Z transforming...
+2024-01-15T14:05:34.891Z ✓ 847 modules transformed.
+2024-01-15T14:05:35.112Z 
+2024-01-15T14:05:35.112Z x Build failed in 1.73s
+2024-01-15T14:05:35.112Z error during build:
+2024-01-15T14:05:35.112Z [vite:build] Failed to load url /src/assets/logo.svg (resolved id: /src/assets/logo.svg). Does the file exist?
+2024-01-15T14:05:35.112Z     at TransformPluginContext._formatError (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:16846:11)
+2024-01-15T14:05:35.112Z     at TransformPluginContext.error (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:16841:16)
+2024-01-15T14:05:35.112Z     at Object.load (file:///app/node_modules/vite/dist/node/chunks/dep-DkOS1hkm.js:51548:14)
+2024-01-15T14:05:35.112Z     at async PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:15885:28)
+2024-01-15T14:05:35.112Z     at async resolveAndLoad (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:17942:26)
+2024-01-15T14:05:35.112Z     at async Promise.all (index 15)
+2024-01-15T14:05:35.112Z 
+2024-01-15T14:05:35.112Z npm ERR! code 1
+2024-01-15T14:05:35.112Z npm ERR! path /app
+2024-01-15T14:05:35.112Z npm ERR! command failed
+2024-01-15T14:05:35.112Z npm ERR! command sh -c vite build
+2024-01-15T14:05:35.112Z 
+2024-01-15T14:05:35.112Z npm ERR! A complete log of this run can be found in: /root/.npm/_logs/2024-01-15T14_05_35_123Z-debug-0.log
+2024-01-15T14:05:35.112Z 
+2024-01-15T14:05:35.113Z ERROR: "build" exited with 1.
+
+------- Additional TypeScript errors encountered during pre-build checks -------
+
+/app/src/components/Dashboard.tsx(23,7): error TS2339: Property 'chartData' does not exist on type 'DashboardProps'.
+/app/src/components/Dashboard.tsx(31,12): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+/app/src/hooks/useAnalytics.ts(14,3): error TS2322: Type 'number | null' is not assignable to type 'number'.
+  Type 'null' is not assignable to type 'number'.
+/app/src/api/client.ts(8,1): error TS2305: Module '"axios"' has no exported member 'AxiosRequestHeaders'.
+
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! myapp@2.3.1 typecheck: `tsc --noEmit`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the myapp@2.3.1 typecheck script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.

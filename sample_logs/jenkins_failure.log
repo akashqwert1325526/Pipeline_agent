@@ -1,0 +1,120 @@
+Started by user admin
+Running in Durably groovy script
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on agent-linux-01 in /var/jenkins/workspace/myapp-deploy
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-token
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/myorg/myapp.git # timeout=10
+Fetching upstream changes from https://github.com/myorg/myapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+ > git fetch --tags --force --progress -- https://github.com/myorg/myapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision a3f8c21d9e4b5f67890abc123def456789012345 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a3f8c21d9e4b5f67890abc123def456789012345 # timeout=10
+Commit message: "feat: add payment processing module"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ mvn clean package -DskipTests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.myorg:myapp >-----------------------
+[INFO] Building myapp 2.3.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.1:clean (default-clean) @ myapp ---
+[INFO] Deleting /var/jenkins/workspace/myapp-deploy/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ myapp ---
+[INFO] Copying 12 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ myapp ---
+[INFO] Compiling 87 source files with javac [debug] to target/classes
+[INFO] 
+[INFO] --- jar:3.3.1:jar (default-jar) @ myapp ---
+[INFO] Building jar: /var/jenkins/workspace/myapp-deploy/target/myapp-2.3.1.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ mvn test
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ myapp ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit5.JUnit5Provider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.myorg.service.PaymentServiceTest
+[ERROR] Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1.234 s <<< FAILURE! -- in com.myorg.service.PaymentServiceTest
+[ERROR] com.myorg.service.PaymentServiceTest.testProcessPayment -- Time elapsed: 0.567 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.myorg.gateway.PaymentGateway.charge(Double)" because "this.gateway" is null
+	at com.myorg.service.PaymentService.processPayment(PaymentService.java:87)
+	at com.myorg.service.PaymentServiceTest.testProcessPayment(PaymentServiceTest.java:54)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+	at org.junit.platform.engine.execution.MethodInvocationTestDescriptor.lambda$invokeTestMethod$7(MethodInvocationTestDescriptor.java:188)
+[ERROR] com.myorg.service.PaymentServiceTest.testRefundPayment -- Time elapsed: 0.123 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.myorg.repository.TransactionRepository.findById(Long)" because "this.transactionRepository" is null
+	at com.myorg.service.PaymentService.processRefund(PaymentService.java:134)
+	at com.myorg.service.PaymentServiceTest.testRefundPayment(PaymentServiceTest.java:88)
+[INFO] Running com.myorg.controller.ApiControllerTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.891 s -- in com.myorg.controller.ApiControllerTest
+[INFO] Running com.myorg.model.UserModelTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.234 s -- in com.myorg.model.UserModelTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   PaymentServiceTest.testProcessPayment:54 NullPointerException: Cannot invoke "com.myorg.gateway.PaymentGateway.charge(Double)" because "this.gateway" is null
+[ERROR]   PaymentServiceTest.testRefundPayment:88 NullPointerException: Cannot invoke "com.myorg.repository.TransactionRepository.findById(Long)" because "this.transactionRepository" is null
+[INFO] 
+[ERROR] Tests run: 16, Failures: 0, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.432 s
+[INFO] Finished at: 2024-01-15T09:45:22+00:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.1.2:test (default-test) on project myapp: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /var/jenkins/workspace/myapp-deploy/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage (skipped due to earlier failure)
+[Pipeline] { (Deploy)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Post)
+[Pipeline] echo
+Pipeline failed: 2 test errors in PaymentServiceTest
+[Pipeline] emailext
+Sending email to: team@myorg.com
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE

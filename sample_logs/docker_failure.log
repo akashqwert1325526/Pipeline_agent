@@ -1,0 +1,42 @@
+2024-01-15T09:14:02.001Z Step 1/12 : FROM python:3.11-slim
+2024-01-15T09:14:02.001Z 
+2024-01-15T09:14:02.001Z Unable to find image 'python:3.11-slim' locally
+2024-01-15T09:14:02.871Z 3.11-slim: Pulling from library/python
+2024-01-15T09:14:03.112Z 
+2024-01-15T09:14:04.221Z error pulling image configuration: Get "https://registry-1.docker.io/v2/library/python/manifests/sha256:abc123": dial tcp: lookup registry-1.docker.io on 8.8.8.8:53: no such host
+2024-01-15T09:14:04.221Z 
+2024-01-15T09:14:04.223Z ERROR: failed to solve: python:3.11-slim: failed to resolve source metadata for docker.io/library/python:3.11-slim: failed to authorize: failed to fetch oauth token: Post "https://auth.docker.io/token": dial tcp: lookup auth.docker.io: no such host
+2024-01-15T09:14:04.223Z 
+2024-01-15T09:14:04.223Z ---- Retrying docker pull (attempt 2/3) ----
+2024-01-15T09:14:12.887Z Step 1/12 : FROM python:3.11-slim
+2024-01-15T09:14:12.887Z  ---> Pulling from library/python
+2024-01-15T09:14:12.887Z a378f10b3218: Pulling fs layer
+2024-01-15T09:14:13.004Z 50fa823940fe: Pulling fs layer
+2024-01-15T09:14:14.221Z a378f10b3218: Verifying Checksum
+2024-01-15T09:14:14.223Z a378f10b3218: Download complete
+2024-01-15T09:14:16.991Z 50fa823940fe: Pull complete
+2024-01-15T09:14:17.001Z Step 2/12 : WORKDIR /app
+2024-01-15T09:14:17.001Z  ---> Running in 7c3f8d9e2a1b
+2024-01-15T09:14:17.221Z  ---> a9f3c1e78b4d
+2024-01-15T09:14:17.221Z Step 3/12 : RUN apt-get update && apt-get install -y --no-install-recommends gcc g++ curl
+2024-01-15T09:14:17.221Z  ---> Running in d2e5f7a93c10
+2024-01-15T09:14:19.441Z Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+2024-01-15T09:14:19.882Z Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.0 kB]
+2024-01-15T09:14:21.001Z Fetched 206 kB in 2s (103 kB/s)
+2024-01-15T09:14:21.991Z Reading package lists... Done
+2024-01-15T09:14:21.993Z Building dependency tree... Done
+2024-01-15T09:14:22.773Z Step 4/12 : COPY requirements.txt .
+2024-01-15T09:14:22.773Z  ---> b1f4e2d78c93
+2024-01-15T09:14:22.773Z Step 5/12 : RUN pip install --no-cache-dir -r requirements.txt
+2024-01-15T09:14:22.773Z  ---> Running in 0f8a2b5c9e14
+2024-01-15T09:14:23.111Z Collecting fastapi==0.104.1
+2024-01-15T09:14:23.556Z   Downloading fastapi-0.104.1-py3-none-any.whl (92 kB)
+2024-01-15T09:14:24.772Z Collecting chromadb==0.4.22
+2024-01-15T09:14:26.004Z   Downloading chromadb-0.4.22-py3-none-any.whl (512 kB)
+2024-01-15T09:14:31.883Z ERROR: Could not install packages due to an OSError: [Errno 28] No space left on device
+2024-01-15T09:14:31.883Z WARNING: You are using pip version 23.3.1; however, version 24.0 is available.
+2024-01-15T09:14:31.883Z You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+2024-01-15T09:14:31.883Z 
+2024-01-15T09:14:31.887Z The command '/bin/sh -c pip install --no-cache-dir -r requirements.txt' returned a non-zero code: 1
+2024-01-15T09:14:31.887Z 
+2024-01-15T09:14:31.887Z ERROR: failed to solve: process "/bin/sh -c pip install --no-cache-dir -r requirements.txt" did not complete successfully: exit code: 1

@@ -1,0 +1,48 @@
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+.npm/
+
+# Python / Backend
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Pytest / Coverage
+.pytest_cache/
+*/.pytest_cache/
+.coverage
+htmlcov/
+
+# Databases & local storage
+*.db
+*.sqlite
+*.sqlite3
+pipelinemedic.db
+test.db
+backend/pipelinemedic.db
+chroma_db/
+backend/chroma_db/
+
+# Environment files
+.env
+backend/.env
+frontend/.env
+*.local
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
