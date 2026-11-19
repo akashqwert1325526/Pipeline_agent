@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+// Directly connect to the FastAPI backend running on port 8000
+const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+  ? 'http://localhost:8000'
+  : 'http://127.0.0.1:8000';
+
 const api = axios.create({
-  baseURL: '', // Uses Vite proxy in development
+  baseURL: API_BASE_URL,
   timeout: 120000,
 });
 
